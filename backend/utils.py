@@ -50,3 +50,13 @@ def create_user(auth_id, name, email, aadhaar, password):
         'password': password
     })
     return True
+
+
+def get_user_by_auth_id(auth_id):
+    """Get user data by auth_id"""
+    db = get_database()
+    user_data = db.child(auth_id).get()
+
+    if user_data:
+        return {**user_data, 'auth_id': auth_id}
+    return None

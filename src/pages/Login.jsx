@@ -31,6 +31,7 @@ function Login({ setUser }) {
         try {
             const response = await fetch("http://localhost:8002/login", {
                 method: "POST",
+                credentials: "include", // Important: allows setting cookies
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -43,12 +44,13 @@ function Login({ setUser }) {
             const data = await response.json();
 
             if (response.ok) {
+                // JWT is automatically stored in httpOnly cookie by backend
                 setUser(data.user);
                 navigate("/");
             } else {
                 setError(data.detail || "Login failed");
             }
-        // eslint-disable-next-line no-unused-vars
+            // eslint-disable-next-line no-unused-vars
         } catch (err) {
             setError("Failed to connect to server");
         } finally {

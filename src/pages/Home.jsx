@@ -1,15 +1,65 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Home({ user }) {
+function Home({ user, setUser }) {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const verifyToken = async () => {
+            try {
+                const response = await fetch("http://localhost:8002/verify", {
+                    method: "GET",
+                    credentials: "include", // Important: sends cookies with request
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setUser(data.user);
+                    setLoading(false);
+                } else {
+                    // Token is invalid or expired
+                    navigate("/login");
+                }
+            } catch (err) {
+                navigate("/login");
+            }
+        };
+
+        verifyToken();
+    }, [navigate, setUser]);
+
+    if (loading) {
+        return (
+            <div style={styles.container}>
+                <p style={styles.subtitle}>Loading...</p>
+            </div>
+        );
+    }
 
     if (!user) {
-        navigate("/login");
         return null;
     }
 
+    const handleSignOut = async () => {
+        try {
+            await fetch("http://localhost:8002/logout", {
+                method: "POST",
+                credentials: "include",
+            });
+        } catch (err) {
+            // Ignore error, just navigate
+        } finally {
+            setUser(null);
+            navigate("/login");
+        }
+    };
+
     return (
         <div style={styles.container}>
+            <button onClick={handleSignOut} style={styles.signOutButton}>
+                Sign Out
+            </button>
             <h1 style={styles.title}>Hello {user.name}</h1>
             <p style={styles.subtitle}>Welcome to the application!</p>
         </div>
@@ -28,6 +78,19 @@ const styles = {
         padding: "20px",
         overflow: "hidden",
         boxSizing: "border-box",
+        position: "relative",
+    },
+    signOutButton: {
+        position: "absolute",
+        top: "20px",
+        right: "20px",
+        padding: "10px 20px",
+        backgroundColor: "#555",
+        color: "#fff",
+        border: "none",
+        borderRadius: "4px",
+        fontSize: "14px",
+        cursor: "pointer",
     },
     title: {
         color: "#fff",
