@@ -16,6 +16,7 @@ function Guest() {
                     // User is authenticated, redirect to home
                     navigate("/");
                 }
+            // eslint-disable-next-line no-unused-vars
             } catch (err) {
                 // User is not authenticated, stay on guest page
             }

@@ -21,6 +21,7 @@ function Home({ user, setUser }) {
                     // Token is invalid or expired
                     navigate("/guest");
                 }
+            // eslint-disable-next-line no-unused-vars
             } catch (err) {
                 navigate("/guest");
             }
@@ -47,6 +48,7 @@ function Home({ user, setUser }) {
                 method: "POST",
                 credentials: "include",
             });
+        // eslint-disable-next-line no-unused-vars
         } catch (err) {
             // Ignore error, just navigate
         } finally {

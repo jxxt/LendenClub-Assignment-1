@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -70,7 +71,7 @@ function Login({ setUser }) {
             } else {
                 setError(data.detail || "Login failed");
             }
-            // eslint-disable-next-line no-unused-vars
+             
         } catch (err) {
             setError("Failed to connect to server");
         } finally {
