@@ -8,10 +8,10 @@ ph = PasswordHasher()
 def hash_password(password: str) -> str:
     """
     Hash a password using Argon2 algorithm.
-    
+
     Args:
         password: Plain text password to hash
-        
+
     Returns:
         Hashed password with embedded salt
     """
@@ -21,11 +21,11 @@ def hash_password(password: str) -> str:
 def verify_password(hashed_password: str, password: str) -> bool:
     """
     Verify a password against its Argon2 hash.
-    
+
     Args:
         hashed_password: The Argon2 hash to verify against
         password: Plain text password to verify
-        
+
     Returns:
         True if password matches, False otherwise
     """

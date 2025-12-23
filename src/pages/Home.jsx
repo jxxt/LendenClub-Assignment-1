@@ -60,7 +60,10 @@ function Home({ user, setUser }) {
             <button onClick={handleSignOut} style={styles.signOutButton}>
                 Sign Out
             </button>
-            <button onClick={() => navigate("/profile")} style={styles.profileButton}>
+            <button
+                onClick={() => navigate("/profile")}
+                style={styles.profileButton}
+            >
                 View Profile
             </button>
             <h1 style={styles.title}>Hello {user.name}</h1>
