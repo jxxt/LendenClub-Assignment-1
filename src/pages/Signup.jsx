@@ -14,10 +14,35 @@ function Signup() {
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+        const { name, value } = e.target;
+
+        // Special handling for Aadhaar field
+        if (name === "aadhaar") {
+            // Remove all non-digits
+            const digitsOnly = value.replace(/\D/g, "");
+
+            // Limit to 12 digits
+            const limitedDigits = digitsOnly.slice(0, 12);
+
+            // Add spaces after every 4 digits
+            let formattedValue = "";
+            for (let i = 0; i < limitedDigits.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedValue += " ";
+                }
+                formattedValue += limitedDigits[i];
+            }
+
+            setFormData({
+                ...formData,
+                [name]: formattedValue,
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -36,7 +61,10 @@ function Signup() {
             return;
         }
 
-        if (formData.aadhaar.length !== 12 || !/^\d+$/.test(formData.aadhaar)) {
+        // Remove spaces from Aadhaar for validation
+        const aadhaarDigits = formData.aadhaar.replace(/\s/g, "");
+
+        if (aadhaarDigits.length !== 12 || !/^\d+$/.test(aadhaarDigits)) {
             setError("Aadhaar number must be 12 digits");
             return;
         }
@@ -46,8 +74,29 @@ function Signup() {
             return;
         }
 
-        if (formData.password.length < 6) {
-            setError("Password must be at least 6 characters");
+        // Enhanced password validation
+        if (formData.password.length < 8) {
+            setError("Password must be at least 8 characters");
+            return;
+        }
+
+        if (!/[a-z]/.test(formData.password)) {
+            setError("Password must contain at least one lowercase letter");
+            return;
+        }
+
+        if (!/[A-Z]/.test(formData.password)) {
+            setError("Password must contain at least one uppercase letter");
+            return;
+        }
+
+        if (!/[0-9]/.test(formData.password)) {
+            setError("Password must contain at least one number");
+            return;
+        }
+
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+            setError("Password must contain at least one symbol");
             return;
         }
 
@@ -62,7 +111,7 @@ function Signup() {
                 body: JSON.stringify({
                     name: formData.name,
                     email: formData.email,
-                    aadhaar: formData.aadhaar,
+                    aadhaar: formData.aadhaar.replace(/\s/g, ""), // Remove spaces before sending
                     password: formData.password,
                 }),
             });
@@ -75,7 +124,7 @@ function Signup() {
             } else {
                 setError(data.detail || "Signup failed");
             }
-        // eslint-disable-next-line no-unused-vars
+            // eslint-disable-next-line no-unused-vars
         } catch (err) {
             setError("Failed to connect to server");
         } finally {
@@ -121,7 +170,7 @@ function Signup() {
                             onChange={handleChange}
                             style={styles.input}
                             placeholder="Enter 12-digit Aadhaar number"
-                            maxLength="12"
+                            maxLength="14"
                         />
                     </div>
 
