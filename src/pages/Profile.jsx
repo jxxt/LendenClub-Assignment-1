@@ -18,10 +18,10 @@ function Profile({ user, setUser }) {
                     setUser(data.user);
                     setLoading(false);
                 } else {
-                    navigate("/login");
+                    navigate("/guest");
                 }
             } catch (err) {
-                navigate("/login");
+                navigate("/guest");
             }
         };
 
@@ -42,7 +42,7 @@ function Profile({ user, setUser }) {
             // Ignore error
         } finally {
             setUser(null);
-            navigate("/login");
+            navigate("/guest");
         }
     };
 
@@ -145,6 +145,13 @@ function Profile({ user, setUser }) {
                     </div>
                 </div>
             </div>
+
+            <footer style={styles.footer}>
+                <p style={styles.footerText}>
+                    Developed by <strong>Jeet Debnath</strong> •{" "}
+                    {new Date().getFullYear()}
+                </p>
+            </footer>
         </div>
     );
 }
@@ -315,6 +322,18 @@ const styles = {
     loadingText: {
         color: "#888",
         fontSize: "16px",
+    },
+    footer: {
+        width: "100%",
+        padding: "15px",
+        textAlign: "center",
+        borderTop: "1px solid #333",
+        marginTop: "20px",
+    },
+    footerText: {
+        color: "#666",
+        fontSize: "13px",
+        margin: 0,
     },
 };
 

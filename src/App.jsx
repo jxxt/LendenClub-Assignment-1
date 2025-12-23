@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
+import Guest from "./pages/Guest";
 
 function App() {
     const [user, setUser] = useState(null);
@@ -15,6 +16,7 @@ function App() {
                     path="/"
                     element={<Home user={user} setUser={setUser} />}
                 />
+                <Route path="/guest" element={<Guest />} />
                 <Route path="/login" element={<Login setUser={setUser} />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route

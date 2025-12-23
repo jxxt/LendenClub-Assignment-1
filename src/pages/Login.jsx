@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login({ setUser }) {
@@ -9,6 +9,26 @@ function Login({ setUser }) {
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const response = await fetch("http://localhost:8002/verify", {
+                    method: "GET",
+                    credentials: "include",
+                });
+
+                if (response.ok) {
+                    // User is authenticated, redirect to home
+                    navigate("/");
+                }
+            } catch (err) {
+                // User is not authenticated, stay on login page
+            }
+        };
+
+        checkAuth();
+    }, [navigate]);
 
     const handleChange = (e) => {
         setFormData({
@@ -108,21 +128,29 @@ function Login({ setUser }) {
                     </span>
                 </p>
             </div>
+
+            <footer style={styles.footer}>
+                <p style={styles.footerText}>
+                    Developed by <strong>Jeet Debnath</strong> •{" "}
+                    {new Date().getFullYear()}
+                </p>
+            </footer>
         </div>
     );
 }
 
 const styles = {
     container: {
-        height: "100vh",
+        minHeight: "100vh",
         width: "100vw",
         backgroundColor: "#000",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         padding: "20px",
-        overflow: "hidden",
         boxSizing: "border-box",
+        position: "relative",
     },
     formWrapper: {
         width: "100%",
@@ -186,6 +214,19 @@ const styles = {
         color: "#fff",
         cursor: "pointer",
         textDecoration: "underline",
+    },
+    footer: {
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+        padding: "15px",
+        textAlign: "center",
+        borderTop: "1px solid #333",
+    },
+    footerText: {
+        color: "#666",
+        fontSize: "13px",
+        margin: 0,
     },
 };
 

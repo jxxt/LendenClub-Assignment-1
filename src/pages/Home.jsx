@@ -19,10 +19,10 @@ function Home({ user, setUser }) {
                     setLoading(false);
                 } else {
                     // Token is invalid or expired
-                    navigate("/login");
+                    navigate("/guest");
                 }
             } catch (err) {
-                navigate("/login");
+                navigate("/guest");
             }
         };
 
@@ -51,7 +51,7 @@ function Home({ user, setUser }) {
             // Ignore error, just navigate
         } finally {
             setUser(null);
-            navigate("/login");
+            navigate("/guest");
         }
     };
 
@@ -102,6 +102,13 @@ function Home({ user, setUser }) {
                     </div>
                 </div>
             </div>
+
+            <footer style={styles.footer}>
+                <p style={styles.footerText}>
+                    Developed by <strong>Jeet Debnath</strong> •{" "}
+                    {new Date().getFullYear()}
+                </p>
+            </footer>
         </div>
     );
 }
@@ -201,6 +208,19 @@ const styles = {
     emoji: {
         fontSize: "22px",
         minWidth: "22px",
+    },
+    footer: {
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+        padding: "15px",
+        textAlign: "center",
+        borderTop: "1px solid #333",
+    },
+    footerText: {
+        color: "#666",
+        fontSize: "13px",
+        margin: 0,
     },
 };
 
