@@ -60,8 +60,8 @@ Firebase Realtime Database (users stored under a generated user id / auth id key
 ```json
 {
     "<userId>": {
-        "name": "Test User 1",
-        "email": "test1@test.com",
+        "name": "user name",
+        "email": "user email",
         "aadhaar": "<AES-256 encrypted base64 string>",
         "password": "<argon2id hash>"
     }
