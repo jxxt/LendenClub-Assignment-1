@@ -60,6 +60,9 @@ function Home({ user, setUser }) {
             <button onClick={handleSignOut} style={styles.signOutButton}>
                 Sign Out
             </button>
+            <button onClick={() => navigate("/profile")} style={styles.profileButton}>
+                View Profile
+            </button>
             <h1 style={styles.title}>Hello {user.name}</h1>
             <p style={styles.subtitle}>Welcome to the application!</p>
         </div>
@@ -86,6 +89,18 @@ const styles = {
         right: "20px",
         padding: "10px 20px",
         backgroundColor: "#555",
+        color: "#fff",
+        border: "none",
+        borderRadius: "4px",
+        fontSize: "14px",
+        cursor: "pointer",
+    },
+    profileButton: {
+        position: "absolute",
+        top: "20px",
+        right: "120px",
+        padding: "10px 20px",
+        backgroundColor: "#3b82f6",
         color: "#fff",
         border: "none",
         borderRadius: "4px",

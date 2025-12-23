@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Response
 from pydantic import BaseModel, EmailStr
 from utils import get_user_by_email
 from jwt_utils import create_jwt_token
+from password_utils import verify_password
 
 router = APIRouter()
 
@@ -20,8 +21,8 @@ async def login(request: LoginRequest, response: Response):
         raise HTTPException(
             status_code=401, detail="Invalid email or password")
 
-    # Verify password
-    if user['password'] != request.password:
+    # Verify password using Argon2
+    if not verify_password(user['password'], request.password):
         raise HTTPException(
             status_code=401, detail="Invalid email or password")
 

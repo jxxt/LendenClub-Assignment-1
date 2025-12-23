@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Cookie
 from pydantic import BaseModel
 from jwt_utils import verify_jwt_token
 from utils import get_user_by_auth_id
+from encryption_utils import decrypt_message
 
 router = APIRouter()
 
@@ -28,12 +29,15 @@ async def verify_token(token: str = Cookie(None)):
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
+    # Decrypt Aadhaar before sending to client
+    decrypted_aadhaar = decrypt_message(user['aadhaar'])
+
     return {
         "valid": True,
         "user": {
             "auth_id": user['auth_id'],
             "name": user['name'],
             "email": user['email'],
-            "aadhaar": user['aadhaar']
+            "aadhaar": decrypted_aadhaar
         }
     }

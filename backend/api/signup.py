@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, EmailStr
 from utils import generate_auth_id, email_exists, create_user
+from password_utils import hash_password
+from encryption_utils import encrypt_message
 
 router = APIRouter()
 
@@ -25,14 +27,20 @@ async def signup(request: SignupRequest):
     # Generate unique auth ID
     auth_id = generate_auth_id()
 
+    # Hash password using Argon2
+    hashed_password = hash_password(request.password)
+
+    # Encrypt Aadhaar using AES-256-CBC
+    encrypted_aadhaar = encrypt_message(request.aadhaar)
+
     # Create user in database
     try:
         create_user(
             auth_id=auth_id,
             name=request.name,
             email=request.email,
-            aadhaar=request.aadhaar,
-            password=request.password
+            aadhaar=encrypted_aadhaar,
+            password=hashed_password
         )
         return {
             "message": "User created successfully",
