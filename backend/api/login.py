@@ -36,7 +36,7 @@ async def login(request: LoginRequest, response: Response):
         httponly=True,
         max_age=86400,  # 1 day in seconds
         samesite="lax",
-        secure=False  # Set to True in production with HTTPS
+        secure=True  # HTTPS only in production
     )
 
     # Return user data (excluding password)
