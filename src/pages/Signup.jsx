@@ -267,12 +267,10 @@ const styles = {
     formWrapper: {
         width: "100%",
         maxWidth: "400px",
-        maxHeight: "85vh",
         padding: "clamp(20px, 4vw, 30px)",
         border: "1px solid #333",
         borderRadius: "8px",
         backgroundColor: "#111",
-        overflowY: "auto",
     },
     title: {
         color: "#fff",
