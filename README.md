@@ -70,46 +70,81 @@ Firebase Realtime Database (users stored under a generated user id / auth id key
 
 ## AI Flavor
 
-| Section                 | Detail                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Section                 | Detail                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **AI-Assisted Tasks**   | - Used GitHub Copilot to help draft backend helper/utility modules (password hashing via Argon2, JWT helpers, AES encryption/decryption helpers, Firebase/DB helper utilities). <br/> - Used Copilot to help wire the FastAPI auth endpoints (`/signup`, `/login`, `/verify`, `/logout`) to those helpers and keep request/response handling consistent. <br/> - Used Copilot to draft the README structure and keep sections concise, and to extract endpoint names/ports by reviewing the existing route files. |
-| **Effectiveness Score** | **Score: 4/5** — Faster implementation of backend helper functions and auth endpoints plus quicker documentation; still required manual verification/testing for env configuration (Firebase keys), cookie/CORS behavior, and crypto correctness.                                                                                                                                                                                                                                                                                                                                                                              |
+| **Effectiveness Score** | **Score: 4/5** — Faster implementation of backend helper functions and auth endpoints plus quicker documentation; still required manual verification/testing for env configuration (Firebase keys), cookie/CORS behavior, and crypto correctness.                                                                                                                                                                                                                                                                 |
 
 ## AI Tool Usage Log
 
 ### Tasks Performed with AI Assistance
-- FastAPI backend implementation
-- React frontend responsiveness
-- Argon2 password hashing implementation
-- AES-256 encryption for Aadhaar data
-- JWT token generation and validation
-- HTTPS-only cookie configuration
-- CORS middleware setup
-- Frontend routing with React Router
-- Login/Signup form validation
-- Protected route implementation
-- API integration in frontend
-- Error handling on both frontend and backend
-- README and documentation creation
+
+-   FastAPI backend implementation
+-   React frontend responsiveness
+-   Argon2 password hashing implementation
+-   AES-256 encryption for Aadhaar data
+-   JWT token generation and validation
+-   HTTPS-only cookie configuration
+-   CORS middleware setup
+-   Frontend routing with React Router
+-   Login/Signup form validation
+-   Protected route implementation
+-   API integration in frontend
+-   Error handling on both frontend and backend
+-   README and documentation creation
 
 ### Specific AI Contributions
-- Generated boilerplate code for FastAPI endpoints (`signup.py`, `login.py`, `verify.py`, `logout.py`)
-- Created utility functions for password hashing (`password_utils.py`)
-- Implemented encryption utilities (`encryption_utils.py`)
-- Developed JWT token handling (`jwt_utils.py`)
-- Set up Firebase configuration (`firebase_config.py`)
-- Responsiveness in React components (`Login.jsx`, `Signup.jsx`, `Home.jsx`, `Profile.jsx`, `Guest.jsx`)
-- Created requirements.txt with necessary Python dependencies
-- Set up package.json with required npm packages
+
+-   Generated boilerplate code for FastAPI endpoints (`signup.py`, `login.py`, `verify.py`, `logout.py`)
+-   Created utility functions for password hashing (`password_utils.py`)
+-   Implemented encryption utilities (`encryption_utils.py`)
+-   Developed JWT token handling (`jwt_utils.py`)
+-   Set up Firebase configuration (`firebase_config.py`)
+-   Responsiveness in React components (`Login.jsx`, `Signup.jsx`, `Home.jsx`, `Profile.jsx`, `Guest.jsx`)
+-   Created requirements.txt with necessary Python dependencies
+-   Set up package.json with required npm packages
 
 ### AI Tool Effectiveness
+
 **Rating: 4/5**
-- Significantly accelerated development time
-- Provided accurate implementation of security features
-- Generated well-structured and organized code
-- Required minimal manual corrections
-- Helped maintain consistency across the codebase
-- Manual intervention needed for environment-specific configurations
-- Testing and debugging still required manual effort
 
+-   Significantly accelerated development time
+-   Provided accurate implementation of security features
+-   Generated well-structured and organized code
+-   Required minimal manual corrections
+-   Helped maintain consistency across the codebase
+-   Manual intervention needed for environment-specific configurations
+-   Testing and debugging still required manual effort
 
+## Unit Testing
+
+### Backend Tests
+
+-   Test password hashing and verification functions
+-   Test AES encryption and decryption utilities
+-   Test JWT token generation and validation
+-   Test Aadhaar validation logic
+-   Test Firebase database operations
+-   Test signup endpoint with valid and invalid data
+-   Test login endpoint with correct and incorrect credentials
+-   Test verify endpoint with valid and expired tokens
+-   Test logout endpoint functionality
+
+### Frontend Tests
+
+-   Test form validation for login and signup
+-   Test protected route access control
+-   Test API integration and error handling
+-   Test user session management
+-   Test component rendering
+-   Test navigation between routes
+-   Test cookie handling
+
+### Running Tests
+
+**Backend:**
+
+```bash
+cd backend
+pytest
+```
