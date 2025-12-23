@@ -106,7 +106,7 @@ Firebase Realtime Database (users stored under a generated user id / auth id key
 
 ### AI Tool Effectiveness
 
-**Rating: 4/5**
+**Rating: 4.5/5**
 
 -   Significantly accelerated development time
 -   Provided accurate implementation of security features
